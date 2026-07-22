@@ -11,11 +11,13 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = '__all__'
+        read_only_fields = ['user'] # <--- Added this line
 
 class BudgetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Budget
         fields = '__all__'
+        read_only_fields = ['user']
         
         
 class RegisterSerializer(serializers.ModelSerializer):
