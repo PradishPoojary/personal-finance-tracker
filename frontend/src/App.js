@@ -2,10 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard'; 
+import Dashboard from './pages/Dashboard';
 import Navbar from './components/Navbar';
-// Temporary placeholder for our next big feature
-const Transactions = () => <div className="container mt-5"><h2>Transaction Management (Coming Soon)</h2></div>;
+import AddTransaction from './pages/AddTransaction';
+import Transactions from './pages/Transactions';
+import Budgets from './pages/Budgets'; 
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add-transaction" element={<AddTransaction />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/budgets" element={<Budgets />} /> 
         </Routes>
       </div>
     </Router>
