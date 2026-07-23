@@ -38,9 +38,9 @@ const Dashboard = () => {
                 <h2 className="text-light">Financial Dashboard</h2>
             </div>
 
-            {/* Summary Cards */}
+           {/* Summary Cards */}
             <div className="row mb-4">
-                <div className="col-md-4">
+                <div className="col-md-3"> {/* Changed from col-md-4 to col-md-3 to fit 4 cards */}
                     <div className="card futuristic-card mb-3">
                         <div className="card-body">
                             <h5 className="card-title text-light opacity-75">Total Income</h5>
@@ -48,7 +48,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                     <div className="card futuristic-card mb-3">
                         <div className="card-body">
                             <h5 className="card-title text-light opacity-75">Total Expenses</h5>
@@ -56,11 +56,29 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                     <div className="card futuristic-card mb-3">
                         <div className="card-body">
                             <h5 className="card-title text-light opacity-75">Net Savings</h5>
                             <h2 className="text-neon-blue">${dashboardData.savings_overview}</h2>
+                        </div>
+                    </div>
+                </div>
+                {/* NEW AI PREDICTION CARD */}
+                <div className="col-md-3">
+                    <div className="card futuristic-card mb-3" style={{ border: '1px solid rgba(175, 25, 255, 0.4)' }}>
+                        <div className="card-body">
+                            {/* Changed title to be more explicit */}
+                            <h5 className="card-title text-light opacity-75 fs-6 text-uppercase fw-bold">
+                                <i className="bi bi-cpu me-2" style={{ color: '#AF19FF' }}></i>Predicted Spend
+                            </h5>
+                            <h2 className="m-0" style={{ color: '#AF19FF', textShadow: '0 0 12px rgba(175, 25, 255, 0.4)' }}>
+                                ${dashboardData.projected_spend || '0.00'}
+                            </h2>
+                            {/* Added a descriptive subtitle */}
+                            <p className="text-light opacity-50 small mt-2 mb-0" style={{ fontSize: '0.8rem', lineHeight: '1.2' }}>
+                                Estimated total expenses by end of the month based on your current velocity.
+                            </p>
                         </div>
                     </div>
                 </div>

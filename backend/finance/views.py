@@ -16,6 +16,62 @@ import csv
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 
+import calendar
+from datetime import datetime
+
+def calculate_projected_spend(expense_transactions):
+    """
+    Uses Linear Regression to predict end-of-month spending based on current velocity.
+    """
+    if not expense_transactions:
+        return 0.0
+
+    today = datetime.now()
+    _, days_in_month = calendar.monthrange(today.year, today.month)
+    current_day = today.day
+
+    # 1. Group expenses by day
+    daily_totals = {day: 0.0 for day in range(1, current_day + 1)}
+    for t in expense_transactions:
+        if t.date.month == today.month and t.date.year == today.year:
+            daily_totals[t.date.day] += float(t.amount)
+
+    # 2. Calculate cumulative spending (y-values) per day (x-values)
+    x_values = []
+    y_values = []
+    cumulative = 0.0
+    
+    for day in range(1, current_day + 1):
+        cumulative += daily_totals[day]
+        x_values.append(day)
+        y_values.append(cumulative)
+
+    n = len(x_values)
+    if n <= 1:
+        # Not enough data for regression, return current cumulative
+        return cumulative
+
+    # 3. Linear Regression Calculations
+    sum_x = sum(x_values)
+    sum_y = sum(y_values)
+    sum_xy = sum(x * y for x, y in zip(x_values, y_values))
+    sum_x_squared = sum(x ** 2 for x in x_values)
+
+    denominator = (n * sum_x_squared) - (sum_x ** 2)
+    
+    # Prevent division by zero if someone logs multiple things on day 1 and nothing else
+    if denominator == 0:
+        return cumulative 
+
+    slope_m = ((n * sum_xy) - (sum_x * sum_y)) / denominator
+    intercept_b = (sum_y - (slope_m * sum_x)) / n
+
+    # 4. Predict for the last day of the month (y = mx + b)
+    projected_total = (slope_m * days_in_month) + intercept_b
+    
+    # Ensure we don't predict less than what is already spent
+    return max(round(projected_total, 2), cumulative)
+
 class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
     permission_classes = [IsAuthenticated] # Secures the API using our JWT setup
@@ -58,12 +114,23 @@ def financial_dashboard(request):
     # Group expenses by category
     expenses = transactions.filter(transaction_type='Expense')
     category_breakdown = expenses.values('category').annotate(total=Sum('amount')).order_by('-total')
+    
+    current_month_expenses = Transaction.objects.filter(
+        user=request.user, 
+        transaction_type='Expense',
+        date__month=datetime.now().month,
+        date__year=datetime.now().year
+    )
+    
+    # Call our AI helper function
+    projected_spend = calculate_projected_spend(current_month_expenses)
 
     return Response({
         'total_income': total_income,
         'total_expenses': total_expenses,
         'savings_overview': savings,
-        'category_breakdown': category_breakdown
+        'category_breakdown': category_breakdown,
+        'projected_spend': projected_spend
     })
     
 @api_view(['GET'])
