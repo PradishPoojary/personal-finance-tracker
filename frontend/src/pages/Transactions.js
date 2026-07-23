@@ -94,7 +94,7 @@ const Transactions = () => {
             theme: 'striped',
             headStyles: { fillColor: [0, 229, 255] }, // Neon Blue header
         });
-        
+
         doc.save("finance_ledger.pdf");
     };
 

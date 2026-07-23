@@ -99,4 +99,7 @@ Rather than relying on heavy external data science libraries, the engine mathema
 The architecture is designed to scale. Upcoming features currently in development include:
 1. **Smart Receipt Scanner (OCR):** Integrating Tesseract Optical Character Recognition to extract total amounts directly from uploaded receipt images, eliminating manual data entry.
 2. **Automated Categorization:** Natural Language Processing (NLP) to auto-tag transactions based on description keywords.
-3. **Multi-Currency Support:** Real-time exchange rate API integration for international travelers.
+
+## 🌐 Live Demo & Access
+* **Frontend Application (Vercel):** [View Live App](https://personal-finance-tracker-mu-eight.vercel.app)
+* **Backend API (Render):** [API Documentation / Root](https://finance-tracker-api.onrender.com)
