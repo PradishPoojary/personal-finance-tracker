@@ -53,7 +53,7 @@ This project demonstrates strong capabilities in full-stack integration, secure 
 
 ## 🧠 Machine Learning Integration
 The backend utilizes a custom Python-based **Linear Regression Algorithm** to calculate projected spending. 
-Rather than relying on heavy external data science libraries, the engine mathematically computes the slope ($m$) and intercept ($b$) of the user's daily cumulative spending, projecting the line of best fit out to the final day of the current calendar month.
+Rather than relying on heavy external data science libraries, the engine mathematically computes the slope (m) and intercept (b) of the user's daily cumulative spending, projecting the line of best fit out to the final day of the current calendar month.
 
 ---
 
@@ -67,30 +67,28 @@ Rather than relying on heavy external data science libraries, the engine mathema
 ### Backend Setup
 1. Clone the repository and navigate to the backend directory.
 2. Create and activate a virtual environment:
-   ```bash
-   python -m venv env
-   source env/bin/activate  # On Windows use `env\Scripts\activate`
-   ```
+
+    python -m venv env
+    source env/bin/activate
+
 3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+
+    pip install -r requirements.txt
+
 4. Run migrations and start the server:
-   ```bash
-   python manage.py migrate
-   python manage.py runserver
-   ```
+
+    python manage.py migrate
+    python manage.py runserver
 
 ### Frontend Setup
 1. Navigate to the frontend directory.
 2. Install Node dependencies:
-   ```bash
-   npm install
-   ```
+
+    npm install
+
 3. Start the React development server:
-   ```bash
-   npm start
-   ```
+
+    npm start
 
 ---
 
