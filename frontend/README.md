@@ -65,43 +65,33 @@ Rather than relying on heavy external data science libraries, the engine mathema
 * Git
 
 ### Backend Setup
-1. Clone the repository and navigate to the backend directory.
-2. Create and activate a virtual environment:
-
-    python -m venv env
-    source env/bin/activate
-
-3. Install dependencies:
-
-    pip install -r requirements.txt
-
-4. Run migrations and start the server:
-
-    python manage.py migrate
-    python manage.py runserver
+1. Navigate to backend: `cd backend`
+2. Create environment: `python -m venv env`
+3. Activate environment: `env\Scripts\activate` (Windows) or `source env/bin/activate` (Mac/Linux)
+4. Install dependencies: `pip install -r requirements.txt`
+5. Run migrations: `python manage.py migrate`
+6. Start server: `python manage.py runserver`
 
 ### Frontend Setup
-1. Navigate to the frontend directory.
-2. Install Node dependencies:
-
-    npm install
-
-3. Start the React development server:
-
-    npm start
+1. Navigate to frontend: `cd frontend`
+2. Install dependencies: `npm install`
+3. Start React app: `npm start`
 
 ---
 
 ## 📡 API Reference
 
-| Endpoint | Method | Description | Authentication |
-| :--- | :--- | :--- | :--- |
-| `/api/token/` | `POST` | Obtain JWT access and refresh tokens. | None |
-| `/api/register/` | `POST` | Register a new user identity. | None |
-| `/api/dashboard/` | `GET` | Retrieve aggregate totals and AI forecast. | Required |
-| `/api/transactions/` | `GET`, `POST` | Fetch or create transaction records. | Required |
-| `/api/transactions/<id>/` | `DELETE` | Remove a specific transaction. | Required |
-| `/api/budgets/` | `GET`, `POST` | Manage monthly budget constraints. | Required |
+**Authentication & Users**
+* `POST /api/token/` - Obtain JWT access and refresh tokens.
+* `POST /api/register/` - Register a new user identity.
+
+**Core Financials**
+* `GET /api/dashboard/` - Retrieve aggregate totals and AI forecast.
+* `GET /api/transactions/` - Fetch all transaction records.
+* `POST /api/transactions/` - Create a new transaction.
+* `DELETE /api/transactions/<id>/` - Remove a specific transaction.
+* `GET /api/budgets/` - Fetch monthly budget constraints.
+* `POST /api/budgets/` - Establish new monthly limits.
 
 ---
 
